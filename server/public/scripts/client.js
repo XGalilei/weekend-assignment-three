@@ -2,6 +2,7 @@ $(readyNow);
 
 function readyNow() {
     console.log('jQuery ready');
+    loadTasks();
     $('#submit-task').on('click', addTask);
     $('main').on('click', '.toggle-completion', completeTask);
     $('main').on('click', '.delete-button', removeTask);
@@ -26,7 +27,7 @@ function appendTasksToDOM(tasks) {
         let completeText = task.complete ? '' : `<button class = "toggle-completion" data-id = "${task.id}">Complete</button>`; 
         $('#taskList').append(
             `<tr>
-                <td>${task.task-instructions}</td>
+                <td>${task.instructions}</td>
                 <td>${task.complete}</td>
                 <td>${completeText}</td>
                 <td>
@@ -41,22 +42,46 @@ function appendTasksToDOM(tasks) {
  * 
  */
 function addTask() {
+    console.log('addTask working');
+    const instr = $('#task-input').val();
+    console.log(instr);
     $.ajax({
         method: 'POST',
         url: '/tasks',
-        data: $('#task-input').val()
+        data: {instructions: instr}
     }).then(function(response) {
-        console.log('Reponse from server:', reponse);
+        console.log('Reponse from server:', response);
         loadTasks();
+    }).catch(handleError);
+    $('#task-input').val('');
+}
+
+/**
+ * 
+ */
+function completeTask() {
+    const taskId = $(this).data('id');
+    $.ajax({
+      method: 'PUT',
+      url: `/tasks/${taskId}`
+    }).then(function(response) {
+      console.log('Task complete');
+      loadTasks();
     }).catch(handleError);
 }
 
-function completeTask() {
-
-}
-
+/**
+ * 
+ */
 function removeTask() {
-
+    const taskId = $(this).data('id');
+    $.ajax({
+      method: 'DELETE',
+      url: `/tasks/${taskId}`
+    }).then(function(response) {
+      console.log('Task removed');
+      loadTasks();
+    }).catch(handleError);
 }
 
 function handleError(error) {

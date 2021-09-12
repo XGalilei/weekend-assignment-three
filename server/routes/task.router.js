@@ -5,7 +5,7 @@ const pool = require('../modules/pool');
 
 //Get all tasks from the database
 router.get('/', (req, res) => {
-    let queryText = 'SELECT * FROM "tasks" ORDER BY "task-instructions";';
+    let queryText = 'SELECT * FROM "tasks" ORDER BY "instructions";';
     pool.query(queryText).then(result => {
         res.send(result.rows);
     }).catch(error => {
@@ -16,11 +16,11 @@ router.get('/', (req, res) => {
 
 //Post a new task to the database
 router.post('/', (req, res) => {
-    let newTask = req.body();
+    let newTask = req.body;
     console.log('Adding new task', newTask);
-    let queryText = `INSERT INTO "tasks" ("task-instructions") VALUES ($1);`;
+    let queryText = `INSERT INTO "tasks" ("instructions") VALUES ($1);`;
 
-    pool.query(queryText, [newTask.task-instructions])
+    pool.query(queryText, [newTask.instructions])
     .then(result => {
         res.sendStatus(201);
     }).catch(error => {
@@ -44,10 +44,10 @@ router.put('/:id', (req, res) => {
 });
 
 //Delete a task from the database
-router.put('/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
     console.log(req.params);
     const taskId = req.params.id;
-    const queryText = `DELETE "tasks" SET "complete" = true WHERE "id" = $1;`;
+    const queryText = `DELETE FROM "tasks" WHERE "id" = $1;`;
 
     pool.query(queryText, [taskId]).then((result) => {
         res.sendStatus(200);
