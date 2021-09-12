@@ -1,9 +1,12 @@
-# Project Name
+# Third Weekend Project
 
 [Project Instructions](./INSTRUCTIONS.md), this line may be removed once you have updated the README.md
 
 ## Description
 
-Your project description goes here. What problem did you solve? How did you solve it?
+A 'TO-DO' application. Connected to a database, 
 
-Additional README details can be found [here](https://github.com/PrimeAcademy/readme-template/blob/master/README.md).
+### Task List
+- [ ] Create a database titled `weekend-to-do-app`
+- [ ] Create a `database.sql` text file that includes all `CREATE TABLE` queries.
+- [ ] Set up the back-end information
