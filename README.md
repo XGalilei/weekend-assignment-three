@@ -10,3 +10,4 @@ A 'TO-DO' application. Connected to a database,
 - [ ] Create a database titled `weekend-to-do-app`
 - [ ] Create a `database.sql` text file that includes all `CREATE TABLE` queries.
 - [ ] Set up the back-end information
+- [ ] CSS Styling
