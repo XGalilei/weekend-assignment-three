@@ -1,5 +1,5 @@
 const express = require('express');
-const route = express.Router();
+const router = express.Router();
 
 const pool = require('../modules/pool');
 
@@ -10,3 +10,5 @@ const pool = require('../modules/pool');
 //Mark an incomplete task as complete
 
 //Delete a task from the database
+
+module.exports = router;
